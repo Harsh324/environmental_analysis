@@ -1,3 +1,5 @@
+from django.core.management.base import BaseCommand
+
 from ctypes import alignment, sizeof
 import tkinter
 from tkinter import Canvas, Label, Listbox, Scrollbar, ttk, font
@@ -6,11 +8,10 @@ from typing import Text
 
 from scipy.ndimage.measurements import label
 
-from GUI import interfaceGlobal
-from GUI import interfaceRain
-from GUI import interfaceIndia
-from GUI import interfaceWBD
-from GUI import interfaceUSA
+from climate.gui import interface_global
+from climate.gui import interface_rain
+from climate.gui import interface_india
+from climate.gui import interface_wbd
 
 # About Tab
 
@@ -62,37 +63,30 @@ def TempNotebook(Tempframe):
     GlobalNotebook = tkinter.Frame(Tempframe,border=10,bg='skyblue3')
     Tempframe.add(GlobalNotebook, text="Global_Kaggle_Dataset")
 
-    interfaceGlobal.countryBox(
+    interface_global.countryBox(
         GlobalNotebook, "Countries Comparision", "Enter Countries Name (Comma Seperated)", 0)
-    interfaceGlobal.stateBox(
+    interface_global.stateBox(
         GlobalNotebook, "States Comparision", "Enter States Name (Comma Seperated)", 1)
-    interfaceGlobal.cityBox(
+    interface_global.cityBox(
         GlobalNotebook, "Cities Comparision", "Enter Cities Name (Comma Seperated)", 2)
 
     GlobalWBDNoteBook = tkinter.Frame(Tempframe,border=10,bg='skyblue3')
     Tempframe.add(GlobalWBDNoteBook, text="Global_WBD_Dataset")
 
-    interfaceWBD.countryBox(
+    interface_wbd.countryBox(
         GlobalWBDNoteBook, "Country Analysis", "Enter Country Name", 0)
-    interfaceWBD.countryBox(GlobalWBDNoteBook, "Countries Comparision",
+    interface_wbd.countryBox(GlobalWBDNoteBook, "Countries Comparision",
                             "Enter Countries Name (Comma Seperated)", 1)
-    interfaceWBD.stateBox(
+    interface_wbd.stateBox(
         GlobalWBDNoteBook, "State Analysis", "Enter State Name", 2)
-    interfaceWBD.stateBox(GlobalWBDNoteBook, "States Comparision",
+    interface_wbd.stateBox(GlobalWBDNoteBook, "States Comparision",
                           "Enter States Name (Comma Seperated)", 3)
 
     IndiaNoteBook = tkinter.Frame(Tempframe,border=10,bg='skyblue3')
     Tempframe.add(IndiaNoteBook, text="India_Dataset")
 
-    interfaceIndia.IndiaBox(
+    interface_india.IndiaBox(
         IndiaNoteBook, "India Analysis", "Enter Month (required)", 0)
-
-    USANoteBook = tkinter.Frame(Tempframe,border=10,bg='skyblue3')
-    Tempframe.add(USANoteBook, text="USA_Dataset")
-
-    interfaceUSA.cityBox(USANoteBook, "City Analysis", "Enter city Name", 0)
-    interfaceUSA.cityBox(USANoteBook, "Cities Comparision",
-                         "Enter cities Name (Comma Seperated)", 1)
 
 
 # Rainfall Tab
@@ -101,64 +95,39 @@ def Rain(notebook):
     RainFrame = tkinter.Frame(notebook, border=10,bg='skyblue3')
     notebook.add(RainFrame, text="Rainfall")
 
-    interfaceRain.countryBox(RainFrame)
-    interfaceRain.countriesBox(RainFrame)
-    interfaceRain.stateBox(RainFrame)
-    interfaceRain.statesBox(RainFrame)
-
-# Participants Tab
+    interface_rain.countryBox(RainFrame)
+    interface_rain.countriesBox(RainFrame)
+    interface_rain.stateBox(RainFrame)
+    interface_rain.statesBox(RainFrame)
 
 
-def Info(notebook):
-    info = tkinter.Frame(notebook, background='skyblue')
-    notebook.add(info, text="Participants")
-    frame3 = tkinter.LabelFrame(info, text="Participants or Group info",font=("Courier", 17),bg='lightpink')
-    frame3.grid(column=0, row=2, padx=8, pady=4)
+class Command(BaseCommand):
+    help = 'Runs the gui for the environmental analysis'
 
-    list_el_1 = tkinter.Label(frame3, text="1. Harsh Upadhayay - BT20CSE115",font=("Courier", 17),bg='honeydew2').grid(
-        column=1, row=0, sticky=tkinter.W, padx=10, pady=5)
-    list_el_2 = tkinter.Label(frame3, text="2. Harsh Tripathi - BT20CSE040",font=("Courier", 17),bg='honeydew2').grid(
-        column=1, row=2, sticky=tkinter.W, padx=10, pady=5)
-    list_el_3 = tkinter.Label(frame3, text="3. Prathamesh Patil - BT20CSE123",font=("Courier", 17),bg='honeydew2').grid(
-        column=1, row=4, sticky=tkinter.W, padx=10, pady=5)
-    list_el_4 = tkinter.Label(frame3, text="4. Niraj Matere - BT20CSE138",font=("Courier", 17),bg='honeydew2').grid(
-        column=1, row=6, sticky=tkinter.W, padx=10, pady=5)
-    list_el_5 = tkinter.Label(frame3, text="5. Ayush Chaurasia - BT20CSE149",font=("Courier", 17),bg='honeydew2').grid(
-        column=1, row=8, sticky=tkinter.W, padx=10, pady=5)
+    def handle(self, *args, **options):
+        win = tkinter.Tk()
+        win.title("Python Mini Project")
+        win.attributes('-zoomed', 1)
 
+        # label=Label(text="Python Mini Project : Climate Change Analysis",font=("Noto Serif",17),bg='khaki')
+        # label.pack()
+        # win.configure(background='gray55')
 
-# Main Program
+        style = ttk.Style()
+        style.theme_settings
+        ("default",
+        {"TNotebook.Tab": {"configure": {"padding": [0, 0]},
+                            "map": {"background": [("active", "green"),
+                                                ("!disabled", "orange")],
+                                    "fieldbackground": [("!disabled", "blue")],
+                                    "foreground": [("focus", "blue"),
+                                                ("!disabled", "black"),
+                                                ("active", 'red')],font:[("15")]}}})
 
-def main():
+        notebook = ttk.Notebook(win, width=100)
+        notebook.pack(expand=0, fill='both', padx=0, pady=0)
+        #About(notebook)
+        Temp(notebook)
+        Rain(notebook)
 
-    win = tkinter.Tk()
-    win.title("Python Mini Project")
-    win.state('zoomed')
-
-    # label=Label(text="Python Mini Project : Climate Change Analysis",font=("Noto Serif",17),bg='khaki')
-    # label.pack()
-    # win.configure(background='gray55')
-
-    style = ttk.Style()
-    style.theme_settings
-    ("default",
-     {"TNotebook.Tab": {"configure": {"padding": [0, 0]},
-                        "map": {"background": [("active", "green"),
-                                               ("!disabled", "orange")],
-                                "fieldbackground": [("!disabled", "blue")],
-                                "foreground": [("focus", "blue"),
-                                               ("!disabled", "black"),
-                                               ("active", 'red')],font:[("15")]}}})
-
-    notebook = ttk.Notebook(win, width=100)
-    notebook.pack(expand=0, fill='both', padx=0, pady=0)
-    About(notebook)
-    Info(notebook)
-    Temp(notebook)
-    Rain(notebook)
-
-    win.mainloop()
-
-
-if __name__ == "__main__":
-    main()
+        win.mainloop()

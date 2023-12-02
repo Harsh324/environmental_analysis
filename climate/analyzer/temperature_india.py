@@ -56,4 +56,3 @@ def Temperature_Analysis_India(Month = 'May',Start_Year = 1901 , End_Year = 2020
 # Plt.axhline(y = Mean)
 # Plt.title('Maximum Temperature')
 # Plt.show()
-

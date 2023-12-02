@@ -1,10 +1,9 @@
-import Climate.Precipitation.Rainfall_Analysis as RainAnalysis
-
+import climate.analyzer.rainfall_analysis as RainAnalysis
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter
 from tkinter import messagebox as msg
-import Graph.Smooth_Rainfall as PLOT
+import climate.graphs.smooth_rainfall as PLOT
 
 
 def _msg():

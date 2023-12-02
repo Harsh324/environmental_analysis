@@ -1,12 +1,11 @@
-import Climate.Temperature.Global as globalKaggle
-
+import climate.analyzer.global_kaggle as globalKaggle
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox as msg
 
-import Graph.Smooth_Temperature as Smooth
+import climate.graphs.smooth_temperature as Smooth
 
 
 def _msg():

@@ -1,13 +1,12 @@
 from tkinter import font
-import Climate.Temperature.GlobalWBD as globalWBD
-
+import climate.analyzer.global_wbd as globalWBD
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox as msg
 
-import Graph.Smooth_Temperature as Smooth
+import climate.graphs.smooth_temperature as Smooth
 
 
 def _msg():

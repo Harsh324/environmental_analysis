@@ -442,10 +442,3 @@ def get_Temperature_Graph_By_CSV(Countries = ['India','China'], Month = 'May'):
         
         #plt.plot(Year, Avg_Temperature, 'go--', linewidth = 2, markersize = 8)
         #plt.show()
-
-
-
-
-
-
-
